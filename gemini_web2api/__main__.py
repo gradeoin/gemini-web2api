@@ -24,6 +24,8 @@ def main():
 
     if args.port:
         CONFIG["port"] = args.port
+    elif os.environ.get("PORT"):
+        CONFIG["port"] = int(os.environ.get("PORT"))
     if args.cookie_file:
         CONFIG["cookie_file"] = args.cookie_file
     if args.proxy:
