@@ -46,7 +46,13 @@ def _get_httpx_client():
 
 
 def load_cookie() -> tuple:
-    """Load cookie from file with mtime-based caching."""
+    """Load cookie from env var or file with mtime-based caching."""
+    env_cookie = os.environ.get("GEMINI_COOKIE")
+    if env_cookie:
+        pairs = dict(p.split("=", 1) for p in env_cookie.split("; ") if "=" in p)
+        sapisid = pairs.get("SAPISID", "")
+        return env_cookie, sapisid if sapisid else None
+
     cookie_file = CONFIG.get("cookie_file")
     if not cookie_file or not os.path.exists(cookie_file):
         return "", None
