@@ -9,7 +9,7 @@
   "xsrf_token": null,
   "default_model": "gemini-3.6-flash",
   "api_keys": [],
-  "cookie_file": null,
+  "cookie_file": "/app/cookie.txt",
   "proxy": null,
   "log_requests": true,
   "temporary_chats": false
