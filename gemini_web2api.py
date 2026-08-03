@@ -73,6 +73,18 @@ MODELS = {
         "mode": 1, "think": 4,
         "desc": "Latest all-around model (Gemini 3.6 Flash)",
     },
+    "gemini-2.0-flash": {
+        "mode": 1, "think": 4,
+        "desc": "Alias for gemini-3.6-flash",
+    },
+    "gemini-1.5-flash": {
+        "mode": 1, "think": 4,
+        "desc": "Alias for gemini-3.6-flash",
+    },
+    "gemini-1.5-pro": {
+        "mode": 3, "think": 4,
+        "desc": "Alias for gemini-3.1-pro",
+    },
     "gemini-3.5-flash": {
         "mode": 1, "think": 4,
         "desc": "Alias for gemini-3.6-flash (backend upgraded)",
@@ -536,7 +548,8 @@ class GeminiHandler(BaseHTTPRequestHandler):
             think_override = int(think_str)
         cfg = MODELS.get(model_name)
         if not cfg:
-            return None, None, None, f"Unknown model: {model_name}"
+            model_name = "gemini-3.6-flash"
+            cfg = MODELS[model_name]
         return model_name, cfg["mode"], (think_override if think_override is not None else cfg["think"]), None
 
     def _call_gemini(self, prompt, model_id, think_mode, tools):
