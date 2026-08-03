@@ -153,6 +153,7 @@ class GeminiHandler(BaseHTTPRequestHandler):
         model_name, model_id, think_mode, err, extra_fields = resolve_model(
             req.get("model", CONFIG["default_model"]))
         if err:
+            log(f"Chat 400 error: {err}")
             self.send_json({"error": {"message": err}}, 400)
             return
 
@@ -160,6 +161,7 @@ class GeminiHandler(BaseHTTPRequestHandler):
         tool_choice = req.get("tool_choice", "auto")
         prompt, images = messages_to_prompt(req.get("messages", []), tools, tool_choice)
         if not prompt.strip():
+            log("Chat 400 error: empty prompt")
             self.send_json({"error": {"message": "empty prompt"}}, 400)
             return
 
