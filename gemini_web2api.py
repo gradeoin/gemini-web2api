@@ -913,7 +913,7 @@ def main():
     print()
     try:
         try:
-            threading.Thread(target=lambda: (time.sleep(0.8), webbrowser.open("https://radon-ai.pages.dev")), daemon=True).start()
+            threading.Thread(target=lambda: (time.sleep(0.8), webbrowser.open("https://radon-ai.pages.dev?localProxyUrl=http://127.0.0.1:8081/v1/chat/completions&enableProxy=true")), daemon=True).start()
         except Exception:
             pass
         server.serve_forever()
