@@ -32,8 +32,20 @@ import os
 import hashlib
 import argparse
 import base64
+import threading
+import webbrowser
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
+
+# Protect against --noconsole AttributeError on stdout/stderr
+class NullWriter:
+    def write(self, s): pass
+    def flush(self): pass
+
+if sys.stdout is None:
+    sys.stdout = NullWriter()
+if sys.stderr is None:
+    sys.stderr = NullWriter()
 
 try:
     import httpx
@@ -900,6 +912,10 @@ def main():
     print(f"  Temporary: {'yes' if CONFIG.get('temporary_chats', False) else 'no'}")
     print()
     try:
+        try:
+            threading.Thread(target=lambda: (time.sleep(0.8), webbrowser.open("https://radon-ai.pages.dev")), daemon=True).start()
+        except Exception:
+            pass
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nStopped.")
