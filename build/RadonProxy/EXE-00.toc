@@ -3,7 +3,7 @@
  False,
  True,
  ['A:\\github stuff\\gemini-web2api\\logo.png'],
- None,
+ versioninfo.VSVersionInfo(ffi=versioninfo.FixedFileInfo(filevers=(3, 0, 0, 0), prodvers=(3, 0, 0, 0), mask=0x3f, flags=0x0, OS=0x40004, fileType=1, subtype=0x0, date=(0, 0)), kids=[versioninfo.StringFileInfo([versioninfo.StringTable('040904B0', [versioninfo.StringStruct('CompanyName', 'Radon AI'), versioninfo.StringStruct('FileDescription', 'Radon AI Local Desktop Proxy Server'), versioninfo.StringStruct('FileVersion', '3.0.0.0'), versioninfo.StringStruct('InternalName', 'RadonProxy'), versioninfo.StringStruct('LegalCopyright', 'Copyright 2026 Radon AI. All rights reserved.'), versioninfo.StringStruct('OriginalFilename', 'RadonProxy.exe'), versioninfo.StringStruct('ProductName', 'Radon AI Desktop'), versioninfo.StringStruct('ProductVersion', '3.0.0.0')])]), versioninfo.VarFileInfo([versioninfo.VarStruct('Translation', [1033, 1200])])]),
  False,
  False,
  b'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<assembly xmlns='
@@ -71,7 +71,7 @@
  [],
  False,
  False,
- 1785840405,
+ 1785840940,
  [('runw.exe',
    'C:\\Users\\karun\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
