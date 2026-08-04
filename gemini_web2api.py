@@ -924,6 +924,10 @@ def main():
             except Exception:
                 pass
         try:
+            init_system_tray(port=port, shutdown_fn=server.shutdown)
+        except Exception:
+            pass
+        try:
             threading.Thread(target=lambda: (time.sleep(0.8), webbrowser.open("https://radon-8mm.pages.dev/app?local=1")), daemon=True).start()
         except Exception:
             pass
@@ -931,6 +935,54 @@ def main():
     except KeyboardInterrupt:
         print("\nStopped.")
         server.shutdown()
+
+
+def init_system_tray(port=8081, shutdown_fn=None):
+    try:
+        import pystray
+        from PIL import Image, ImageDraw
+
+        def create_logo_icon():
+            img = Image.new('RGBA', (64, 64), color=(0, 0, 0, 0))
+            draw = ImageDraw.Draw(img)
+            # Amber background
+            draw.rounded_rectangle([2, 2, 62, 62], radius=14, fill=(245, 158, 11, 255))
+            # Black Radon 'R' mark
+            draw.rectangle([16, 14, 25, 50], fill=(0, 0, 0, 255))
+            draw.ellipse([25, 14, 46, 32], fill=(0, 0, 0, 255))
+            draw.ellipse([32, 20, 39, 26], fill=(245, 158, 11, 255))
+            draw.line([25, 30, 46, 50], fill=(0, 0, 0, 255), width=8)
+            return img
+
+        def on_open_app(icon, item):
+            webbrowser.open("https://radon-8mm.pages.dev/app?local=1")
+
+        def on_copy_endpoint(icon, item):
+            try:
+                if sys.platform == 'win32':
+                    os.system(f'echo http://127.0.0.1:{port}/v1/chat/completions | clip')
+            except Exception:
+                pass
+
+        def on_exit_app(icon, item):
+            icon.stop()
+            if shutdown_fn:
+                shutdown_fn()
+            os._exit(0)
+
+        menu = pystray.Menu(
+            pystray.MenuItem(f"⚡ Radon AI Server (127.0.0.1:{port})", lambda i, item: None, enabled=False),
+            pystray.Menu.SEPARATOR,
+            pystray.MenuItem("🌐 Open Radon Assistant", on_open_app, default=True),
+            pystray.MenuItem("📋 Copy Proxy URL", on_copy_endpoint),
+            pystray.Menu.SEPARATOR,
+            pystray.MenuItem("❌ Exit Radon Desktop", on_exit_app)
+        )
+
+        icon = pystray.Icon("RadonAI", create_logo_icon(), f"Radon AI Server (127.0.0.1:{port})", menu)
+        threading.Thread(target=icon.run, daemon=True).start()
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":
