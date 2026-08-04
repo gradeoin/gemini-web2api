@@ -1,5 +1,5 @@
 ('A:\\github stuff\\gemini-web2api\\build\\RadonProxy\\RadonProxy.exe',
- True,
+ False,
  False,
  True,
  ['A:\\github stuff\\gemini-web2api\\logo.png'],
@@ -71,8 +71,8 @@
  [],
  False,
  False,
- 1785840165,
- [('run.exe',
-   'C:\\Users\\karun\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
+ 1785840405,
+ [('runw.exe',
+   'C:\\Users\\karun\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
  'C:\\Users\\karun\\AppData\\Local\\Python\\pythoncore-3.14-64\\python314.dll')
