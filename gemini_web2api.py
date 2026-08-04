@@ -914,6 +914,14 @@ def main():
     try:
         if sys.platform == 'win32':
             try:
+                import ctypes
+                # Hide console window so it stays purely in System Tray with no taskbar presence
+                whnd = ctypes.windll.kernel32.GetConsoleWindow()
+                if whnd != 0:
+                    ctypes.windll.user32.ShowWindow(whnd, 0) # 0 = SW_HIDE
+            except Exception:
+                pass
+            try:
                 import winreg
                 exe_path = sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__)
                 with winreg.CreateKey(winreg.HKEY_CURRENT_USER, r"Software\Classes\radon") as key:
