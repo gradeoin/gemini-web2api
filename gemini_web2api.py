@@ -912,6 +912,17 @@ def main():
     print(f"  Temporary: {'yes' if CONFIG.get('temporary_chats', False) else 'no'}")
     print()
     try:
+        if sys.platform == 'win32':
+            try:
+                import winreg
+                exe_path = sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__)
+                with winreg.CreateKey(winreg.HKEY_CURRENT_USER, r"Software\Classes\radon") as key:
+                    winreg.SetValue(key, "", winreg.REG_SZ, "URL:Radon Protocol")
+                    winreg.SetValueEx(key, "URL Protocol", 0, winreg.REG_SZ, "")
+                    with winreg.CreateKey(key, r"shell\open\command") as cmd_key:
+                        winreg.SetValue(cmd_key, "", winreg.REG_SZ, f'"{exe_path}" "%1"')
+            except Exception:
+                pass
         try:
             threading.Thread(target=lambda: (time.sleep(0.8), webbrowser.open("https://radon-8mm.pages.dev/app?local=1")), daemon=True).start()
         except Exception:
